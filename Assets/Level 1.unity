@@ -133,6 +133,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3681467569165462851, guid: 1daf63ea48621cd44a15228c78e76c0f,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3703668055476931003, guid: 1daf63ea48621cd44a15228c78e76c0f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8669454398854025441, guid: 1daf63ea48621cd44a15228c78e76c0f,
         type: 3}
       propertyPath: m_Name
@@ -146,7 +156,7 @@ PrefabInstance:
     - target: {fileID: 8669454398854025442, guid: 1daf63ea48621cd44a15228c78e76c0f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.498852
+      value: 2.78
       objectReference: {fileID: 0}
     - target: {fileID: 8669454398854025442, guid: 1daf63ea48621cd44a15228c78e76c0f,
         type: 3}
@@ -262,6 +272,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Launch Pad
       objectReference: {fileID: 0}
+    - target: {fileID: 5571882800259328658, guid: f6d736094a246df4f9587146c0bd527c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6d736094a246df4f9587146c0bd527c, type: 3}
 --- !u!1001 &993401928654061151
@@ -279,12 +294,12 @@ PrefabInstance:
     - target: {fileID: 993401928005571371, guid: 327adf2a705111e45b4832050fdb9b45,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 4.65
       objectReference: {fileID: 0}
     - target: {fileID: 993401928005571371, guid: 327adf2a705111e45b4832050fdb9b45,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15
+      value: -28.31
       objectReference: {fileID: 0}
     - target: {fileID: 993401928005571371, guid: 327adf2a705111e45b4832050fdb9b45,
         type: 3}
