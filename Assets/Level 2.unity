@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.45002878, g: 0.5000841, b: 0.57550144, a: 1}
+  m_IndirectSpecularColor: {r: 0.45002836, g: 0.5000835, b: 0.5755003, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1280,6 +1280,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rocket Ship
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352068287182326911, guid: b094723d5afd6bc40b0a50511964a8b0,
+        type: 3}
+      propertyPath: mainThrust
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 7310784430992042335, guid: b094723d5afd6bc40b0a50511964a8b0,
         type: 3}
