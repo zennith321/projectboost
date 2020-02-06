@@ -1385,11 +1385,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket Ship
       objectReference: {fileID: 0}
-    - target: {fileID: 6202316288288731596, guid: b094723d5afd6bc40b0a50511964a8b0,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 56
-      objectReference: {fileID: 0}
     - target: {fileID: 7310784430992042335, guid: b094723d5afd6bc40b0a50511964a8b0,
         type: 3}
       propertyPath: m_LocalPosition.x
