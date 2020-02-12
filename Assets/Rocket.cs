@@ -22,8 +22,8 @@ public class Rocket : MonoBehaviour
     Rigidbody rigidBody;
     AudioSource audioSource;
 
-    enum State {Alive, Dying, Transcending}
-    State state = State.Alive;
+    bool isTransitioning = false;
+    bool collisionsDisabled = false;
 
     // Start is called before the first frame update
     void Start()
@@ -35,42 +35,59 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      if (state == State.Alive)
-      {
-        RespondToThrustInput();
-        RespondToRotationInput();
-      }
+        if (!isTransitioning)
+        {
+            RespondToThrustInput();
+            RespondToRotationInput();
+        }
+        if (Debug.isDebugBuild)
+        {
+            RespondToDebugInput();
+        }
+    }
+
+    private void RespondToDebugInput()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextScene();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionsDisabled = !collisionsDisabled; // toggle
+        }
     }
 
     void OnCollisionEnter(Collision collision)
         {
-          if (state != State.Alive) {  return; } // ignore collisions when dead
+          if (isTransitioning || collisionsDisabled) {  return; } // disable collisions on certain conditions
 
             switch (collision.gameObject.tag)
             {
-              case "Friendly":
-                //do nothing
-                break;
-            case "Finish":
-                StartSuccessSequence();
-                break;
-            default:
-                StartDeathSequence();
-                break;
+                case "Friendly":
+                    //do nothing
+                    break;
+                case "Finish":
+                    StartSuccessSequence();
+                    break;
+                default:
+                    StartDeathSequence();
+                    break;
             }
         }
     private void StartSuccessSequence()
     {
-        state = State.Transcending;
+        isTransitioning = true;
         audioSource.Stop();
         audioSource.PlayOneShot(loadLevelSound);
         successParticles.Play();
+        mainEngineParticles.Stop();
         Invoke("LoadNextScene", levelLoadDelay); 
     }
 
     private void StartDeathSequence()
     {
-        state = State.Dying;
+        isTransitioning = true;
         audioSource.Stop();
         audioSource.PlayOneShot(deathSound);
         deathParticles.Play();
@@ -80,7 +97,18 @@ public class Rocket : MonoBehaviour
 
     private void LoadNextScene()
     {
-        SceneManager.LoadScene(1); // TODO allow for more than 2 levels
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int totalSceneIndex = SceneManager.sceneCountInBuildSettings - 1;
+
+        if (totalSceneIndex == currentSceneIndex)
+        {
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            int nextSceneIndex = currentSceneIndex + 1;
+            SceneManager.LoadScene(nextSceneIndex);
+        }
     }
 
     private void LoadFirstScene()
@@ -117,19 +145,20 @@ public class Rocket : MonoBehaviour
 
     private void RespondToRotationInput()
     {
-        rigidBody.freezeRotation = true; //take manual control of rotation
-
-        float rotationThisFrame = rcsThrust * Time.deltaTime;
-
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(Vector3.forward * rotationThisFrame);
+            RotateManually(rcsThrust * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(-Vector3.forward * rotationThisFrame);
+            RotateManually(-rcsThrust * Time.deltaTime);
         }
+    }
 
+    private void RotateManually(float rotationThisFrame)
+    {
+        rigidBody.freezeRotation = true; //take manual control of rotation
+        transform.Rotate(Vector3.forward * rotationThisFrame);
         rigidBody.freezeRotation = false; //resume physics control of rotation
     }
 }
