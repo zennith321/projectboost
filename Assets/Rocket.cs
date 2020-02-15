@@ -10,6 +10,7 @@ public class Rocket : MonoBehaviour
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 10f;
     [SerializeField] float levelLoadDelay = 1f;
+    [SerializeField] GameData gameData;
 
     [SerializeField] AudioClip mainEngineSound;
     [SerializeField] AudioClip loadLevelSound;
@@ -72,7 +73,7 @@ public class Rocket : MonoBehaviour
                     break;
                 default:
                     StartDeathSequence();
-                    break;
+                break;
             }
         }
     private void StartSuccessSequence()
@@ -87,12 +88,21 @@ public class Rocket : MonoBehaviour
 
     private void StartDeathSequence()
     {
+        gameData.RemoveLives(1);
         isTransitioning = true;
         audioSource.Stop();
         audioSource.PlayOneShot(deathSound);
         deathParticles.Play();
         mainEngineParticles.Stop();
-        Invoke("LoadFirstScene", levelLoadDelay);
+        int curentLives = gameData.GetLives();
+        if (curentLives <= 0)
+        {
+            Invoke("LoadFirstScene", levelLoadDelay);
+        }
+        else
+        {
+            Invoke("LoadCurrentScene", levelLoadDelay);
+        }
     }
 
     private void LoadNextScene()
@@ -113,7 +123,13 @@ public class Rocket : MonoBehaviour
 
     private void LoadFirstScene()
     {
+        gameData.SetLives(3);
         SceneManager.LoadScene(0);
+    }
+
+    private void LoadCurrentScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void RespondToThrustInput()
