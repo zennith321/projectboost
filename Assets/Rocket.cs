@@ -71,6 +71,9 @@ public class Rocket : MonoBehaviour
                 case "Finish":
                     StartSuccessSequence();
                     break;
+                case "Guy":
+                    //do nothing
+                    break;
                 default:
                     StartDeathSequence();
                 break;
